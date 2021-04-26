@@ -7,11 +7,13 @@
 
 #define I2C_PORT_NUMBER 0
 
-#define CCS811_I2C_ADDRESS_1      0x5A      /* Default Device Address/Identifier for CCS811*/
-#define CCS811_I2C_ADDRESS_2      0x5B
+#define CCS811_I2C_ADDRESS_2      0x5A      /* Default Device Address/Identifier for CCS811*/
+#define CCS811_I2C_ADDRESS_1      0x5B
 #define WRITE_BIT 			I2C_MASTER_WRITE              /*!< I2C master write */
 #define READ_BIT 			I2C_MASTER_READ                /*!< I2C master read */
 #define ACK_CHECK_EN 		0x1                        /*!< I2C master will check ack from slave*/
+#define ACK_VAL 0x0                             /*!< I2C ack value */
+#define NACK_VAL 0x1                            /*!< I2C nack value */
 
 /* CCS811 register addresses */
 #define CCS811_REG_STATUS          0x00
@@ -50,11 +52,13 @@
 #define CCS811_ERR_HEATER_FAULT    0x10  // heater current not in range
 #define CCS811_ERR_HEATER_SUPPLY   0x20  // heater voltage not applied correctly
 
-int8_t slave_read_byte(uint8_t);
-bool slave_write_byte(uint8_t, uint8_t); 
+// int8_t slave_read_byte(uint8_t);
+// bool slave_write_byte(uint8_t, uint8_t); 
 bool check_ccs811(void);
-void init_ccs811(bool);
+bool init_ccs811(bool);
 void print_ccs811(void);
 char* get_ccs811(int);
+bool ccs811_write_byte(uint8_t, uint8_t);
+uint8_t ccs811_read_byte(uint8_t);
 
 #endif
