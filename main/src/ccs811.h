@@ -53,12 +53,12 @@
 #define CCS811_ERR_HEATER_SUPPLY   0x20  // heater voltage not applied correctly
 
 // int8_t slave_read_byte(uint8_t);
-// bool slave_write_byte(uint8_t, uint8_t); 
+// bool slave_write_byte(uint8_t, uint8_t);
+bool ccs811_write_byte(uint8_t, const uint8_t);
+uint8_t ccs811_read_byte(uint8_t);
 bool check_ccs811(void);
 bool init_ccs811(bool);
 void print_ccs811(void);
 char* get_ccs811(int);
-bool ccs811_write_byte(uint8_t, uint8_t);
-uint8_t ccs811_read_byte(uint8_t);
 
 #endif

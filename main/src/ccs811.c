@@ -30,9 +30,18 @@ bool check_ccs811()
 bool init_ccs811(bool _ft)
 {
     bool e;
-    e = ccs811_write_byte(CCS811_REG_APP_START, 0); // Put 'No data' (0) in APP_START register for init sensor
+    const uint8_t app_start = 0;
+    e = ccs811_write_byte(CCS811_REG_APP_START, app_start); // Put 'No data' (0) in APP_START register for init sensor
 
     vTaskDelay(100/portTICK_PERIOD_MS);
+
+    // Read Status
+    printf("-   Status: %d\n", ccs811_read_byte(CCS811_REG_STATUS) >> 7);
+
+    vTaskDelay(100/portTICK_PERIOD_MS);
+
+    // Read Mode
+    printf("-   Mode: %d\n", ccs811_read_byte(CCS811_REG_MEAS_MODE));
 
     return e;
 } 
@@ -75,16 +84,19 @@ char* get_ccs811(int a)
 //    	s=buffer;
 //        return s ; /* Gyrosc Z */
 //    }
-    return "0";
+    return "03";
 }
 
-bool ccs811_write_byte(uint8_t reg_addr, uint8_t data)
+bool ccs811_write_byte(uint8_t reg_addr, const uint8_t data)
 {
+    //uint8_t* d;
+    //d = &data;
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
     i2c_master_start(cmd);
     i2c_master_write_byte(cmd, CCS811_I2C_ADDRESS_1 << 1 | WRITE_BIT, ACK_CHECK_EN);
     i2c_master_write_byte(cmd, reg_addr, ACK_CHECK_EN);
-    i2c_master_write_byte(cmd, data, ACK_CHECK_EN);
+    i2c_master_write(cmd, &data, 8, ACK_CHECK_EN);
+//    i2c_master_write_byte(cmd, data, ACK_CHECK_EN);
     i2c_master_stop(cmd);
     int ret = i2c_master_cmd_begin(I2C_PORT_NUMBER, cmd, TICK_DELAY);
     i2c_cmd_link_delete(cmd);
@@ -93,21 +105,6 @@ bool ccs811_write_byte(uint8_t reg_addr, uint8_t data)
     }
     return true;
 }
-
-// bool slave_write_byte(uint8_t reg_addr, uint8_t data) {
-// //    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-// //    i2c_master_start(cmd);
-// //    i2c_master_write_byte(cmd, MPU6050_SENSOR_ADDR << 1, ACK_CHECK_EN);
-// //    i2c_master_write_byte(cmd, reg_addr, ACK_CHECK_EN);
-// //    i2c_master_write_byte(cmd, data, ACK_CHECK_EN);
-// //    i2c_master_stop(cmd);
-// //    int ret = i2c_master_cmd_begin(I2C_PORT_NUMBER, cmd, TICK_DELAY);
-// //    i2c_cmd_link_delete(cmd);
-// //    if (ret == ESP_FAIL) {
-// //        return false;
-// //    }
-//     return true;
-// }
 
 uint8_t ccs811_read_byte(uint8_t addr)
 {
