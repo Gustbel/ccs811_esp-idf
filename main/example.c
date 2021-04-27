@@ -29,7 +29,7 @@ void app_main(void) {
     while(1){
         printf("CO2: %s", get_ccs811(0));
         vTaskDelay(15/portTICK_PERIOD_MS);
-        printf(" - VOS: %s\n", get_ccs811(1));
+        printf(" - VOC: %s\n", get_ccs811(1));
         vTaskDelay(1500/portTICK_PERIOD_MS);
     }
 }

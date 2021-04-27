@@ -54,7 +54,7 @@ char* get_ccs811(int a)
             sprintf(buffer, "%d", d.dataCO2);
             s=buffer;
             return s ; 
-        case 1:	/* VOS */
+        case 1:	/* VOC */
             sprintf(buffer, "%d", d.dataVOC);
             s=buffer;
             return s ; 
