@@ -52,13 +52,17 @@
 #define CCS811_ERR_HEATER_FAULT    0x10  // heater current not in range
 #define CCS811_ERR_HEATER_SUPPLY   0x20  // heater voltage not applied correctly
 
+// Struct data
+typedef struct {
+    uint16_t dataCO2, dataVOC;
+} ccs811_data;
+
 // int8_t slave_read_byte(uint8_t);
 // bool slave_write_byte(uint8_t, uint8_t);
 bool ccs811_write_byte(uint8_t, const uint8_t);
 uint8_t ccs811_read_byte(uint8_t);
-bool check_ccs811(void);
+ccs811_data ccs811_sensor_data(uint8_t);
 bool init_ccs811(bool);
-void print_ccs811(void);
 char* get_ccs811(int);
 
 #endif

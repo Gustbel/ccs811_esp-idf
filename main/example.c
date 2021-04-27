@@ -16,12 +16,17 @@ void app_main(void)
 	init_i2c();
 
     //Read ID del sensor
-    printf("\n	CCS811 ID Number: 0x%x\n", ccs811_read_byte(0x20));
-
     if (init_ccs811(true)){
         printf("\nInitialized!!!\n");
     }
     else{
         printf("\nNO Initialized\n");
+    }
+
+    while(1){
+        printf("CO2: %s", get_ccs811(0));
+        vTaskDelay(15/portTICK_PERIOD_MS);
+        printf(" - VOS: %s\n", get_ccs811(1));
+        vTaskDelay(1500/portTICK_PERIOD_MS);
     }
 }
