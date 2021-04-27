@@ -13,7 +13,7 @@ char* s;
 short value;
 i2c_cmd_handle_t cmd;
 
-bool init_ccs811(bool _ft)
+bool init_ccs811()
 {
     const uint8_t app_start = 0;
 

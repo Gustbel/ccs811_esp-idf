@@ -10,19 +10,22 @@
 #include "i2c.h"
 #include "src/ccs811.h"
 
-void app_main(void)
-{	printf("\n	-- CCS811 lib test --\n");	
+void app_main(void) {
 
-	init_i2c();
+    printf("\n	-- CCS811 lib test --\n");	
 
-    //Read ID del sensor
-    if (init_ccs811(true)){
+    // Init I2C
+    init_i2c();
+
+    // Init Sensor and set mode
+    if (init_ccs811()){
         printf("\nInitialized!!!\n");
     }
     else{
         printf("\nNO Initialized\n");
     }
 
+    // Read data
     while(1){
         printf("CO2: %s", get_ccs811(0));
         vTaskDelay(15/portTICK_PERIOD_MS);
