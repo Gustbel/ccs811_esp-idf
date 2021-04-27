@@ -40,8 +40,13 @@ bool init_ccs811(bool _ft)
 
     vTaskDelay(100/portTICK_PERIOD_MS);
 
+    // Define Mode
+    const uint8_t mode = 1 << 4;
+    ccs811_write_byte(CCS811_REG_MEAS_MODE, mode); // Put 'No data' (0) in APP_START register for init sensor
+    vTaskDelay(100/portTICK_PERIOD_MS);
+
     // Read Mode
-    printf("-   Mode: %d\n", ccs811_read_byte(CCS811_REG_MEAS_MODE));
+    printf("-   Mode: %d\n", ccs811_read_byte(CCS811_REG_MEAS_MODE) >> 4);
 
     return e;
 } 
@@ -84,7 +89,7 @@ char* get_ccs811(int a)
 //    	s=buffer;
 //        return s ; /* Gyrosc Z */
 //    }
-    return "03";
+    return "0";
 }
 
 bool ccs811_write_byte(uint8_t reg_addr, const uint8_t data)
