@@ -7,9 +7,6 @@
 
 #define CCS811_MODE 1  // CCS811 DRIVE_MODE (See Datasheet)
 
-char buffer[100];
-char* s;
-
 short value;
 i2c_cmd_handle_t cmd;
 
@@ -44,22 +41,17 @@ bool init_ccs811()
     return true;
 }
 
-char* get_ccs811(int a)
+float get_ccs811(int a)
  {
     ccs811_data d = ccs811_sensor_data(CCS811_REG_ALG_RESULT_DATA);
- 	s = ""; 
     switch (a) 
     {	
         case 0:	/* CO2 */
-            sprintf(buffer, "%d", d.dataCO2);
-            s=buffer;
-            return s ; 
+            return d.dataCO2; 
         case 1:	/* VOC */
-            sprintf(buffer, "%d", d.dataVOC);
-            s=buffer;
-            return s ; 
+            return d.dataVOC;
     }
-    return "0";
+    return 0.0;
 }
 
 ccs811_data ccs811_sensor_data(uint8_t addr)

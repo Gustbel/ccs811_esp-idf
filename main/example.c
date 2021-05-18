@@ -27,9 +27,9 @@ void app_main(void) {
 
     // Read data
     while(1){
-        printf("CO2: %s", get_ccs811(0));
+        printf("CO2: %f", get_ccs811(0));
         vTaskDelay(15/portTICK_PERIOD_MS);
-        printf(" - VOC: %s\n", get_ccs811(1));
+        printf(" - VOC: %f\n", get_ccs811(1));
         vTaskDelay(1500/portTICK_PERIOD_MS);
     }
 }
