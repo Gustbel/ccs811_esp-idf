@@ -59,7 +59,7 @@ typedef struct {
 
 // int8_t slave_read_byte(uint8_t);
 // bool slave_write_byte(uint8_t, uint8_t);
-bool ccs811_write_byte(uint8_t, const uint8_t);
+bool ccs811_write_byte(uint8_t, const uint8_t, const uint8_t);
 uint8_t ccs811_read_byte(uint8_t);
 ccs811_data ccs811_sensor_data(uint8_t);
 bool init_ccs811();

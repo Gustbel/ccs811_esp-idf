@@ -20,8 +20,8 @@
 #define ACK_VAL 0x0                 /*!< I2C ack value */
 #define NACK_VAL 0x1                /*!< I2C nack value */
 
-static gpio_num_t i2c_gpio_sda = 18;
-static gpio_num_t i2c_gpio_scl = 19;
+static gpio_num_t i2c_gpio_sda = 21;
+static gpio_num_t i2c_gpio_scl = 22;
 static uint32_t i2c_frequency = 100000;
 static i2c_port_t i2c_port = I2C_NUM_0;
 
